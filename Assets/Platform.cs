@@ -23,7 +23,8 @@ public class Platform : MonoBehaviour
 
     void platformAnim()
     {
-        platfrom = this.GetComponent<Rigidbody2D>();
-        GetComponent<Animator>().parameters.SetValue();
+        
+        transform.GetComponent<Animator>().SetTrigger("OnColi");
+        
     }
 }
