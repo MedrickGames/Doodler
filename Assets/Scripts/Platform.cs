@@ -10,6 +10,7 @@ public class Platform : MonoBehaviour
 
     private Rigidbody2D platfrom;
     
+    
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.relativeVelocity.y <= 0)
@@ -23,5 +24,6 @@ public class Platform : MonoBehaviour
     void platformAnim()
     {
         platfrom = this.GetComponent<Rigidbody2D>();
+        GetComponent<Animator>().parameters.SetValue();
     }
 }

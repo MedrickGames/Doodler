@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4268935639715630965}
   - component: {fileID: 5265943295018213767}
   - component: {fileID: 1976228169260869619}
+  - component: {fileID: 6731241503720022020}
   m_Layer: 0
   m_Name: Platform
   m_TagString: Untagged
@@ -160,3 +161,18 @@ PlatformEffector2D:
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
+--- !u!111 &6731241503720022020
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7852886769701301268}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: a6906e9a08044b447a7845834ef43959, type: 2}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 1
