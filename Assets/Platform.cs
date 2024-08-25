@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class Platform : MonoBehaviour
@@ -13,13 +14,15 @@ public class Platform : MonoBehaviour
     
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.relativeVelocity.y <= 0)
+        if (other.relativeVelocity.y <= 0 || other.relativeVelocity.y > 0 && other.relativeVelocity.y < 1 )
         {
             platformAnim();
             Rigidbody2D rb =  other.transform.GetComponent<Rigidbody2D>();
             rb.velocity = new Vector2(0,jumpSpeed);
         }
     }
+
+  
 
     void platformAnim()
     {

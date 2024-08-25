@@ -4,7 +4,7 @@ public class CameraFollow : MonoBehaviour
 {
     public Transform doodler; // Reference to the Doodler's transform
     public float smoothSpeed = 0.125f; // Smooth speed for camera movement
-    public float followThreshold = 0.1f; // Threshold to start following (one-third of the screen)
+    public float followThreshold = -0.33f; // Threshold to start following (one-third of the screen)
 
     private float cameraHeight;
 
