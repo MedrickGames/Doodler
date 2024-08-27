@@ -26,7 +26,10 @@ public class Lava : MonoBehaviour
         
         if (tempTime > time + 5f)
         {
-            this.transform.position = new Vector3(transform.position.x,transform.position.y + 1 * Time.deltaTime,transform.position.z);
+            if (camera.position.y -2.6 > transform.position.y )
+            {
+                this.transform.position = new Vector3(transform.position.x,transform.position.y + 1 * Time.deltaTime,transform.position.z);
+            }
         }
 
         if (tempScore > score)
