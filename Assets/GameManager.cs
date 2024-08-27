@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using TMPro;
 
@@ -11,10 +8,6 @@ public class GameManager : MonoBehaviour
     public int score = 0;
     private float _tempScore;
     public TextMeshProUGUI scoreUI;
-
-    void Start()
-    {
-    }
     
     void Update()
     {

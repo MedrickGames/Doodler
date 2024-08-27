@@ -22,6 +22,7 @@ public class Platform : MonoBehaviour
         }
     }
 
+    
   
 
     void platformAnim()
