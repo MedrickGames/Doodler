@@ -26,14 +26,7 @@ public class Platform : MonoBehaviour
             rb.velocity = new Vector2(0,jumpSpeed);
         }
     }
-
-
-    void JumpAnim(Collision2D other)
-    {
-        
-        other.transform.GetComponent<SpriteRenderer>().sprite = player.skins[3];
-    }
-
+    
     void platformAnim()
     {
         
@@ -47,7 +40,7 @@ public class Platform : MonoBehaviour
         {
             Debug.Log("jump start");
             GameObject.Find("Doodler").GetComponent<SpriteRenderer>().sprite = player.skins[3];
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.65f);
         }
         GameObject.Find("Doodler").GetComponent<SpriteRenderer>().sprite = player.skins[2];
     }
