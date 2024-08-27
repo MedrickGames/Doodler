@@ -14,7 +14,7 @@ public class Platform : MonoBehaviour
     
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.relativeVelocity.y <= 0 || other.relativeVelocity.y > 0 && other.relativeVelocity.y < 1 )
+        if (other.relativeVelocity.y <= 0 || other.relativeVelocity.y > 0 && other.relativeVelocity.y < 1 && other.gameObject.CompareTag("Player"))
         {
             platformAnim();
             Rigidbody2D rb =  other.transform.GetComponent<Rigidbody2D>();
