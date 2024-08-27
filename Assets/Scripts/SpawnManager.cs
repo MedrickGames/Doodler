@@ -42,7 +42,7 @@ public class SpawnManager : MonoBehaviour
         }
 
         // Optional: Clean up platforms that are far below the Doodler's current position
-        CleanupPlatforms();
+        //CleanupPlatforms();
     }
 
     /// <summary>
@@ -87,20 +87,20 @@ public class SpawnManager : MonoBehaviour
     /// <summary>
     /// Cleans up platforms that are below the cleanup threshold relative to the Doodler's current Y position.
     /// </summary>
-    void CleanupPlatforms()
-    {
-        // Define the Y position below which platforms should be destroyed
-        float removeThreshold = doodler.position.y - cleanupThreshold;
-
-        // Iterate through the list of spawned platforms in reverse order
-        for (int i = spawnedPlatforms.Count - 1; i >= 0; i--)
-        {
-            if (spawnedPlatforms[i].transform.position.y < removeThreshold)
-            {
-                // Destroy the platform and remove it from the list
-                Destroy(spawnedPlatforms[i]);
-                spawnedPlatforms.RemoveAt(i);
-            }
-        }
-    }
+    // void CleanupPlatforms()
+    // {
+    //     // Define the Y position below which platforms should be destroyed
+    //     float removeThreshold = doodler.position.y - cleanupThreshold;
+    //
+    //     // Iterate through the list of spawned platforms in reverse order
+    //     for (int i = spawnedPlatforms.Count - 1; i >= 0; i--)
+    //     {
+    //         if (spawnedPlatforms[i].transform.position.y < removeThreshold)
+    //         {
+    //             // Destroy the platform and remove it from the list
+    //             Destroy(spawnedPlatforms[i]);
+    //             spawnedPlatforms.RemoveAt(i);
+    //         }
+    //     }
+    // }
 }

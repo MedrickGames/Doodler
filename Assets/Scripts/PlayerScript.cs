@@ -7,6 +7,7 @@ public class PlayerScript : MonoBehaviour
 {
     private Rigidbody2D player;
     private SpriteRenderer playerSprite;
+    public List<Sprite> skins = new List<Sprite>(4);
     public float speed = 15f;
     private float _direction;
     private float screenWidth;

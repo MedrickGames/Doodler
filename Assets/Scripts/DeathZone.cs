@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DeathZone : MonoBehaviour
@@ -8,6 +9,11 @@ public class DeathZone : MonoBehaviour
         {
             Debug.Log("You Died");
         }
-        
+
+        if (other.transform.tag == "Platform")
+        {
+            Debug.Log("Plat Del");
+            Destroy(other.gameObject);
+        }
     }
 }
