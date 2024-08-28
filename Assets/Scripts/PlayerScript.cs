@@ -7,11 +7,13 @@ public class PlayerScript : MonoBehaviour
 {
     private Rigidbody2D player;
     private SpriteRenderer playerSprite;
+    public GameObject nose;
     public List<Sprite> skins = new List<Sprite>(4);
     public float speed = 15f;
     private float _direction;
     private float screenWidth;
     private float _cameraOffset = 0.25f;
+    private bool _isFirstShoot;
     
     void Start()
     {
@@ -35,6 +37,15 @@ public class PlayerScript : MonoBehaviour
     {
         ChangeDirection();
         IsOut();
+        DidShoot();
+    }
+
+    void DidShoot()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            StartCoroutine(ActiveShooter());
+        }
     }
     void IsOut()
    {
@@ -61,5 +72,22 @@ public class PlayerScript : MonoBehaviour
             
            playerSprite.flipX = false;
        }
+   }
+
+   IEnumerator ActiveShooter()
+   {
+       while (true)
+       {
+        nose.SetActive(true);
+        if (_isFirstShoot)
+        {
+            Debug.Log("shoot");
+            _isFirstShoot = false;
+        }
+        yield return new WaitForSeconds(5f);
+        break;
+       }
+       nose.SetActive(false);
+       _isFirstShoot = true;
    }
 }
