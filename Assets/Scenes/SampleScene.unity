@@ -1358,14 +1358,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87cb646c107427e48b306ec238f6b302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  platformPrefab: {fileID: 2795182376105092814, guid: f73ba7a13b821aa438259964cec6808c, type: 3}
+  greenPlatformPrefab: {fileID: 2795182376105092814, guid: f73ba7a13b821aa438259964cec6808c, type: 3}
+  bluePlatformPrefab: {fileID: 9034924468608534748, guid: bbe599c30e068a84baabb7b7a5a1cb22, type: 3}
   doodler: {fileID: 530523984}
   initialPlatformCount: 10
   minYSpacing: 1.5
   maxYSpacing: 3
   spawnBuffer: 10
-  cleanupThreshold: 8
   offSet: 0.5
+  bluePlatformMinInterval: 10
+  bluePlatformMaxInterval: 20
+  scoreThresholdForEnemies: 200
+  enemyPrefab: {fileID: 3075600926594942374, guid: 9119aca0a928c4245bc25924a8301827, type: 3}
+  enemySpawnChance: 0.1
 --- !u!4 &1959810488
 Transform:
   m_ObjectHideFlags: 0

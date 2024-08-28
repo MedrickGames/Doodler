@@ -1,27 +1,42 @@
 using UnityEngine;
 using System.Collections.Generic;
+
 public class SpawnManager : MonoBehaviour
 {
     [Header("Platform Settings")]
-    public GameObject platformPrefab;        // The platform prefab to spawn
+    public GameObject greenPlatformPrefab;   // Green platform prefab
+    public GameObject bluePlatformPrefab;    // Blue platform prefab (appears intermittently)
     public Transform doodler;                // Reference to the Doodler's transform
     public int initialPlatformCount = 10;    // Number of platforms to spawn initially
-    public float minYSpacing = 1.5f;        // Minimum vertical spacing between platforms
-    public float maxYSpacing = 3f;          // Maximum vertical spacing between platforms
+    public float minYSpacing = 1.5f;         // Minimum vertical spacing between platforms
+    public float maxYSpacing = 3f;           // Maximum vertical spacing between platforms
 
     [Header("Spawning Parameters")]
     public float spawnBuffer = 10f;          // Distance ahead of the Doodler to spawn platforms
-    public float cleanupThreshold = 15f;     // Distance below the Doodler to clean up platforms
     public float offSet = 0.5f;
+
+    [Header("Difficulty Progression")]
+    public int bluePlatformMinInterval = 10; // Minimum number of green platforms before a blue one
+    public int bluePlatformMaxInterval = 20; // Maximum number of green platforms before a blue one
+    public int scoreThresholdForEnemies = 200; // Score threshold to start spawning enemies
+    public GameObject enemyPrefab;           // Enemy prefab to spawn
+    public float enemySpawnChance = 0.1f;    // Chance to spawn an enemy (0.1 = 10%)
 
     private float cameraWidth;               // Current camera width in world units
     private float highestY = 0f;             // Highest Y position of spawned platforms
     private List<GameObject> spawnedPlatforms = new List<GameObject>(); // List to track spawned platforms
 
+    private int currentScore;
+    private int greenPlatformCount = 0;      // Counter for the number of green platforms spawned
+    private int nextBluePlatformInterval;    // Determines when the next blue platform should spawn
+
     void Start()
     {
         // Initialize camera width
         UpdateCameraWidth();
+
+        // Set initial interval for the first blue platform
+        SetNextBluePlatformInterval();
 
         // Spawn initial platforms
         for (int i = 0; i < initialPlatformCount; i++)
@@ -32,6 +47,9 @@ public class SpawnManager : MonoBehaviour
 
     void Update()
     {
+        // Get current score from your game manager (you need to implement this)
+        currentScore = GameObject.Find("GameManager").GetComponent<GameManager>().score;
+
         // Determine the Y position threshold for spawning new platforms
         float spawnThreshold = doodler.position.y + spawnBuffer;
 
@@ -45,9 +63,6 @@ public class SpawnManager : MonoBehaviour
         //CleanupPlatforms();
     }
 
-    /// <summary>
-    /// Updates the camera's width based on its current orthographic size and aspect ratio.
-    /// </summary>
     void UpdateCameraWidth()
     {
         Camera mainCamera = Camera.main;
@@ -62,9 +77,6 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Spawns a single platform at a random X position within the camera's width and a Y position above the last platform.
-    /// </summary>
     void SpawnPlatform()
     {
         // Random X position within the camera's width
@@ -76,31 +88,45 @@ public class SpawnManager : MonoBehaviour
         // Update the highestY to the new spawn position
         highestY = spawnY;
 
+        // Determine platform type based on the count of green platforms spawned
+        GameObject platformPrefabToUse;
+
+        if (greenPlatformCount >= nextBluePlatformInterval)
+        {
+            platformPrefabToUse = bluePlatformPrefab;
+            greenPlatformCount = 0; // Reset the green platform counter
+            SetNextBluePlatformInterval(); // Set the next interval for blue platform
+        }
+        else
+        {
+            platformPrefabToUse = greenPlatformPrefab;
+            greenPlatformCount++;
+        }
+
         // Instantiate the platform
         Vector3 spawnPosition = new Vector3(spawnX, spawnY, 0f);
-        GameObject newPlatform = Instantiate(platformPrefab, spawnPosition, Quaternion.identity);
+        GameObject newPlatform = Instantiate(platformPrefabToUse, spawnPosition, Quaternion.identity);
+
+        // Check if we should spawn an enemy
+        if (currentScore >= scoreThresholdForEnemies && Random.value < enemySpawnChance)
+        {
+            SpawnEnemy(spawnPosition);
+        }
 
         // Add the new platform to the tracking list
         spawnedPlatforms.Add(newPlatform);
     }
 
-    /// <summary>
-    /// Cleans up platforms that are below the cleanup threshold relative to the Doodler's current Y position.
-    /// </summary>
-    // void CleanupPlatforms()
-    // {
-    //     // Define the Y position below which platforms should be destroyed
-    //     float removeThreshold = doodler.position.y - cleanupThreshold;
-    //
-    //     // Iterate through the list of spawned platforms in reverse order
-    //     for (int i = spawnedPlatforms.Count - 1; i >= 0; i--)
-    //     {
-    //         if (spawnedPlatforms[i].transform.position.y < removeThreshold)
-    //         {
-    //             // Destroy the platform and remove it from the list
-    //             Destroy(spawnedPlatforms[i]);
-    //             spawnedPlatforms.RemoveAt(i);
-    //         }
-    //     }
-    // }
+    void SetNextBluePlatformInterval()
+    {
+        // Randomly determine the next interval for blue platform spawning
+        nextBluePlatformInterval = Random.Range(bluePlatformMinInterval, bluePlatformMaxInterval);
+    }
+
+    void SpawnEnemy(Vector3 platformPosition)
+    {
+        float enemySpawnX = Random.Range(-cameraWidth, cameraWidth);
+        Vector3 enemySpawnPosition = new Vector3(enemySpawnX, platformPosition.y + Random.Range(1f, 2f), 0f);
+        Instantiate(enemyPrefab, enemySpawnPosition, Quaternion.identity);
+    }
 }
