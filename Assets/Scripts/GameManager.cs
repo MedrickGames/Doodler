@@ -11,11 +11,15 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI scoreUI;
     public TextMeshProUGUI HighScoreUI;
     private int _highScore;
+    private int _thisGameScore;
+    private PlayerScript doodler;
 
     private void Start()
     {
         _highScore = PlayerPrefs.GetInt("HighScore", 0);
+        PlayerPrefs.SetInt("ThisGame", 0);
         HighScoreUI.text = "" + _highScore;
+        doodler = GameObject.Find("Doodler").GetComponent<PlayerScript>();
     }
 
     void Update()
@@ -26,10 +30,11 @@ public class GameManager : MonoBehaviour
     void GetScore()
     {
         _tempScore = player.transform.position.y;
-        if (_tempScore > score)
+        if (_tempScore > score && !doodler.isDead)
         {
             score = (int)_tempScore;
             scoreUI.text = ""+score;
+            PlayerPrefs.SetInt("ThisGame", score);
         }
 
         if (score > _highScore)

@@ -1526,6 +1526,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef4abdf307eee004db09c007a5ac1134, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
 --- !u!61 &1738567021
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1999,12 +2000,16 @@ PrefabInstance:
       objectReference: {fileID: 743036197}
     - target: {fileID: 672789646575621224, guid: 55c619ee7dcb657408cd26bc4cfbe8e0, type: 3}
       propertyPath: skins.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 672789646575621224, guid: 55c619ee7dcb657408cd26bc4cfbe8e0, type: 3}
       propertyPath: skins.Array.data[4]
       value: 
       objectReference: {fileID: 22176586, guid: b42a163e3fb2f084baadd5400bffb323, type: 3}
+    - target: {fileID: 672789646575621224, guid: 55c619ee7dcb657408cd26bc4cfbe8e0, type: 3}
+      propertyPath: skins.Array.data[5]
+      value: 
+      objectReference: {fileID: 1458420539, guid: b42a163e3fb2f084baadd5400bffb323, type: 3}
     - target: {fileID: 2640337740238512273, guid: 55c619ee7dcb657408cd26bc4cfbe8e0, type: 3}
       propertyPath: m_Name
       value: Doodler

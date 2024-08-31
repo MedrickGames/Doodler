@@ -7,7 +7,14 @@ public class MonsterS : MonoBehaviour
 {
     [SerializeField]
     private float jumpSpeed = 15f;
-  
+
+    public PlayerScript player;
+
+    void Start()
+    {
+        player = GameObject.Find("Doodler").GetComponent<PlayerScript>();
+    }
+
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.relativeVelocity.y <= 0 || other.relativeVelocity.y > 0 && other.relativeVelocity.y < 1 && other.gameObject.CompareTag("Player"))
@@ -23,6 +30,7 @@ public class MonsterS : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("you died");
+            player.die();
         }
     }
 }

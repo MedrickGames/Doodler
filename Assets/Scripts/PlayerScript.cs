@@ -20,6 +20,7 @@ public class PlayerScript : MonoBehaviour
     public bool isShooting;
     private bool hasChangedSprite;
     Coroutine activeShooterCoroutine;
+    public bool isDead = false;
     
     void Start()
     {
@@ -45,6 +46,10 @@ public class PlayerScript : MonoBehaviour
         ChangeDirection();
         IsOut();
         DidShoot();
+        if (isDead)
+        {
+            transform.position = new Vector3(transform.position.x,transform.position.y + 2.5f * Time.deltaTime, transform.position.z);
+        }
     }
 
     void DidShoot()
@@ -127,5 +132,14 @@ public class PlayerScript : MonoBehaviour
 
        // Start a new coroutine
        activeShooterCoroutine = StartCoroutine(ActiveShooter());
+   }
+
+   public void die()
+   {
+       isDead = true;
+       playerSprite.sprite = skins[5];
+       GetComponent<Rigidbody2D>().simulated = false;
+       GetComponent<Rigidbody2D>().gravityScale = 0;
+       GetComponent<BoxCollider2D>().isTrigger = true;
    }
 }
