@@ -54,7 +54,7 @@ public class PlayerScript : MonoBehaviour
 
     void DidShoot()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !isDead)
         {
             var mousePosWorld = _cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, _cam.nearClipPlane));
         
@@ -113,7 +113,10 @@ public class PlayerScript : MonoBehaviour
        yield return new WaitForSeconds(1.5f); // Wait for 5 seconds
 
        // Actions after shooting duration ends
-       playerSprite.sprite = skins[2]; // Revert to another skin after shooting
+       if (!isDead)
+       {
+        playerSprite.sprite = skins[2]; // Revert to another skin after shooting
+       }
        nose.SetActive(false); // Deactivate the nose
        isShooting = false; // Reset shooting state
    }
@@ -137,6 +140,7 @@ public class PlayerScript : MonoBehaviour
    public void die()
    {
        isDead = true;
+       nose.SetActive(false);
        playerSprite.sprite = skins[5];
        GetComponent<Rigidbody2D>().simulated = false;
        GetComponent<Rigidbody2D>().gravityScale = 0;

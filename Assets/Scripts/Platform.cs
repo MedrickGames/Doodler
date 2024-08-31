@@ -46,7 +46,7 @@ public class Platform : MonoBehaviour
             yield return new WaitForSeconds(0.65f);
         }
 
-        if (!player.isShooting)
+        if (!player.isShooting && !player.isDead)
         {
             GameObject.Find("Doodler").GetComponent<SpriteRenderer>().sprite = player.skins[2];
         }
