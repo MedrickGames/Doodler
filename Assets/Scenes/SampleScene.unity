@@ -591,6 +591,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f73ba7a13b821aa438259964cec6808c, type: 3}
+--- !u!4 &743036197 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2680825655204871867, guid: 55c619ee7dcb657408cd26bc4cfbe8e0, type: 3}
+  m_PrefabInstance: {fileID: 5280618310261867861}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &857663700
 GameObject:
   m_ObjectHideFlags: 0
@@ -1985,6 +1990,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 190833468}
     - target: {fileID: 672789646575621224, guid: 55c619ee7dcb657408cd26bc4cfbe8e0, type: 3}
+      propertyPath: booger
+      value: 
+      objectReference: {fileID: -6511095811363475362, guid: 37653636fbc461540aa33c1480f980f3, type: 3}
+    - target: {fileID: 672789646575621224, guid: 55c619ee7dcb657408cd26bc4cfbe8e0, type: 3}
+      propertyPath: spawnPoint
+      value: 
+      objectReference: {fileID: 743036197}
+    - target: {fileID: 672789646575621224, guid: 55c619ee7dcb657408cd26bc4cfbe8e0, type: 3}
       propertyPath: skins.Array.size
       value: 5
       objectReference: {fileID: 0}
@@ -2003,6 +2016,10 @@ PrefabInstance:
     - target: {fileID: 4244355508102069086, guid: 55c619ee7dcb657408cd26bc4cfbe8e0, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6980342024786485361, guid: 55c619ee7dcb657408cd26bc4cfbe8e0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.0138334
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

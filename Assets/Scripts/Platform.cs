@@ -20,7 +20,10 @@ public class Platform : MonoBehaviour
     {
         if (other.relativeVelocity.y <= 0 || other.relativeVelocity.y > 0 && other.relativeVelocity.y < 1 && other.gameObject.CompareTag("Player"))
         {
-            StartCoroutine("JumpAn");
+            if (!player.isShooting)
+            {
+                StartCoroutine("JumpAn");
+            }
             platformAnim();
             Rigidbody2D rb =  other.transform.GetComponent<Rigidbody2D>();
             rb.velocity = new Vector2(0,jumpSpeed);
@@ -42,6 +45,10 @@ public class Platform : MonoBehaviour
             GameObject.Find("Doodler").GetComponent<SpriteRenderer>().sprite = player.skins[3];
             yield return new WaitForSeconds(0.65f);
         }
-        GameObject.Find("Doodler").GetComponent<SpriteRenderer>().sprite = player.skins[2];
+
+        if (!player.isShooting)
+        {
+            GameObject.Find("Doodler").GetComponent<SpriteRenderer>().sprite = player.skins[2];
+        }
     }
 }

@@ -14,9 +14,16 @@ public class PlayerScript : MonoBehaviour
     private float screenWidth;
     private float _cameraOffset = 0.25f;
     private bool _isFirstShoot;
+    private Camera _cam;
+    public Booger booger;
+    public Transform spawnPoint;
+    public bool isShooting;
+    private bool hasChangedSprite;
+    Coroutine activeShooterCoroutine;
     
     void Start()
     {
+        _cam = Camera.main;
         player = GetComponent<Rigidbody2D>();
         playerSprite = player.transform.GetComponent<SpriteRenderer>();
         screenWidth = Camera.main.aspect * Camera.main.orthographicSize + _cameraOffset;
@@ -44,7 +51,20 @@ public class PlayerScript : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            StartCoroutine(ActiveShooter());
+            var mousePosWorld = _cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, _cam.nearClipPlane));
+        
+            
+            Vector3 aimDirection = mousePosWorld - transform.position;
+            aimDirection.z = 0f;
+            
+            nose.SetActive(true);
+            
+            nose.transform.up = aimDirection.normalized;
+    
+            Instantiate(booger, spawnPoint.position, Quaternion.identity).Init(nose.transform.up);
+            
+            StartShooting();
+            
         }
     }
     void IsOut()
@@ -76,18 +96,36 @@ public class PlayerScript : MonoBehaviour
 
    IEnumerator ActiveShooter()
    {
-       while (true)
+       if (isShooting) // If already shooting, return
+           yield break;
+
+       isShooting = true; // Mark shooting as active
+
+       // Perform any initial actions needed for shooting
+       playerSprite.sprite = skins[4]; // Example: Set shooting skin
+       nose.SetActive(true); // Example: Activate the nose
+
+       yield return new WaitForSeconds(1.5f); // Wait for 5 seconds
+
+       // Actions after shooting duration ends
+       playerSprite.sprite = skins[2]; // Revert to another skin after shooting
+       nose.SetActive(false); // Deactivate the nose
+       isShooting = false; // Reset shooting state
+   }
+   void StartShooting()
+   {
+       if (activeShooterCoroutine != null)
        {
-        nose.SetActive(true);
-        if (_isFirstShoot)
-        {
-            Debug.Log("shoot");
-            _isFirstShoot = false;
-        }
-        yield return new WaitForSeconds(5f);
-        break;
+           // Stop the existing coroutine if one is running
+           StopCoroutine(activeShooterCoroutine);
+
+           // Ensure that the shooting state and skin are reset properly
+           playerSprite.sprite = skins[2];
+           nose.SetActive(false);
+           isShooting = false;
        }
-       nose.SetActive(false);
-       _isFirstShoot = true;
+
+       // Start a new coroutine
+       activeShooterCoroutine = StartCoroutine(ActiveShooter());
    }
 }

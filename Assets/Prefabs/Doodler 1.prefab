@@ -203,12 +203,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b12da04eaf9960f49ac22c06aea245eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nose: {fileID: 0}
   skins:
   - {fileID: -1138151906, guid: 5773991dd7732e945b4f1e8cc37e21f2, type: 3}
   - {fileID: 257570320, guid: 5773991dd7732e945b4f1e8cc37e21f2, type: 3}
   - {fileID: -1484262199, guid: 5773991dd7732e945b4f1e8cc37e21f2, type: 3}
   - {fileID: -1576527923, guid: 5773991dd7732e945b4f1e8cc37e21f2, type: 3}
   speed: 15
+  booger: {fileID: 0}
+  spawnPoint: {fileID: 0}
 --- !u!1 &4244355508102069086
 GameObject:
   m_ObjectHideFlags: 0
@@ -219,7 +222,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6980342024786485361}
   - component: {fileID: 260148127360651249}
-  - component: {fileID: 7590419655243796870}
   m_Layer: 0
   m_Name: shooter
   m_TagString: Untagged
@@ -295,17 +297,3 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7590419655243796870
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4244355508102069086}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 914b036bfccbae3468b34924dd41e62f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  booger: {fileID: -6511095811363475362, guid: 37653636fbc461540aa33c1480f980f3, type: 3}
-  spawnPoint: {fileID: 2680825655204871867}

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public Transform doodler; // Reference to the Doodler's transform
+    public Transform doodler; 
     public float smoothSpeed = 0.125f; // Smooth speed for camera movement
     public float followThreshold = -0.33f; // Threshold to start following (one-third of the screen)
 
@@ -10,7 +10,6 @@ public class CameraFollow : MonoBehaviour
 
     void Start()
     {
-        // Calculate half the height of the camera in world units
         cameraHeight = Camera.main.orthographicSize;
     }
 
