@@ -1,4 +1,6 @@
 using System;
+using UnityEngine.SceneManagement;
+using System.Collections;
 using UnityEngine;
 using TMPro;
 
@@ -13,6 +15,7 @@ public class GameManager : MonoBehaviour
     private int _highScore;
     private int _thisGameScore;
     private PlayerScript doodler;
+    private bool showDead;
 
     private void Start()
     {
@@ -25,6 +28,11 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         GetScore();
+        if (doodler.isDead && !showDead)
+        {
+            showDead = true;
+            StartCoroutine(ShowDeathMen());
+        }
     }
 
     void GetScore()
@@ -42,5 +50,11 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt("HighScore", score);
             HighScoreUI.text = "" + score;
         }
+    }
+
+    IEnumerator  ShowDeathMen()
+    {
+        yield return new WaitForSeconds(5f);
+        SceneManager.LoadScene(1);
     }
 }

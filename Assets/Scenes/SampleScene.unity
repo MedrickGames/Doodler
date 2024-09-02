@@ -509,6 +509,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doodler: {fileID: 530523984}
+  player: {fileID: 0}
   smoothSpeed: 0.125
   followThreshold: 0.33
 --- !u!114 &519420034
@@ -1945,6 +1946,10 @@ PrefabInstance:
     - target: {fileID: 260148127360651249, guid: 55c619ee7dcb657408cd26bc4cfbe8e0, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 260148127360651249, guid: 55c619ee7dcb657408cd26bc4cfbe8e0, type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 580838770057256497, guid: 55c619ee7dcb657408cd26bc4cfbe8e0, type: 3}
       propertyPath: m_LocalPosition.x
