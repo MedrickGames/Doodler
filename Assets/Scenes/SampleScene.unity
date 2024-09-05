@@ -959,6 +959,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1018728042}
   m_CullTransparentMesh: 1
+--- !u!1 &1127136350
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1127136351}
+  m_Layer: 0
+  m_Name: Platforms
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1127136351
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1127136350}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 241.98549, y: 476.18164, z: -4.3494763}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1135718819
 GameObject:
   m_ObjectHideFlags: 0
@@ -1854,6 +1885,7 @@ MonoBehaviour:
   scoreThresholdForEnemies: 50
   enemyPrefab: {fileID: 3075600926594942374, guid: 9119aca0a928c4245bc25924a8301827, type: 3}
   enemySpawnChance: 0.3
+  platformHolder: {fileID: 1127136350}
 --- !u!4 &1959810488
 Transform:
   m_ObjectHideFlags: 0
@@ -2348,3 +2380,4 @@ SceneRoots:
   - {fileID: 1845431272}
   - {fileID: 1386372280}
   - {fileID: 1964688537}
+  - {fileID: 1127136351}

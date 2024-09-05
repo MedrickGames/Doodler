@@ -14,14 +14,13 @@ public class DeathZone : MonoBehaviour
     {
         if (other.transform.CompareTag("Player"))
         {
-            Debug.Log("You Died");
             player.die();
         }
 
         else if (other.transform.tag == "Platform")
         {
             Debug.Log("Plat Del");
-            Destroy(other.gameObject);
+            Destroy(other.transform.parent.gameObject);
         }
 
         else if (other.transform.CompareTag("Enemy"))

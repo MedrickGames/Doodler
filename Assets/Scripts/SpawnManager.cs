@@ -30,6 +30,8 @@ public class SpawnManager : MonoBehaviour
     private int greenPlatformCount = 0;      // Counter for the number of green platforms spawned
     private int nextBluePlatformInterval;    // Determines when the next blue platform should spawn
 
+    public GameObject platformHolder;
+
     void Start()
     {
         // Initialize camera width
@@ -106,7 +108,8 @@ public class SpawnManager : MonoBehaviour
         // Instantiate the platform
         Vector3 spawnPosition = new Vector3(spawnX, spawnY, 0f);
         GameObject newPlatform = Instantiate(platformPrefabToUse, spawnPosition, Quaternion.identity);
-
+        newPlatform.transform.parent = platformHolder.transform;
+        
         // Check if we should spawn an enemy
         if (currentScore >= scoreThresholdForEnemies && Random.value < enemySpawnChance)
         {
