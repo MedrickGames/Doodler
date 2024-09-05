@@ -55,6 +55,6 @@ public class GameManager : MonoBehaviour
     IEnumerator  ShowDeathMen()
     {
         yield return new WaitForSeconds(5f);
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(3);
     }
 }

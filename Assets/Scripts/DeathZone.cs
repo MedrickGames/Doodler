@@ -18,9 +18,14 @@ public class DeathZone : MonoBehaviour
             player.die();
         }
 
-        if (other.transform.tag == "Platform")
+        else if (other.transform.tag == "Platform")
         {
             Debug.Log("Plat Del");
+            Destroy(other.gameObject);
+        }
+
+        else if (other.transform.CompareTag("Enemy"))
+        {
             Destroy(other.gameObject);
         }
     }
