@@ -30,6 +30,7 @@ public class MainMenue : MonoBehaviour
 
    public void Pause()
    {
+      GameObject.Find("Doodler").GetComponent<PlayerScript>().isPaused = true;
       Time.timeScale = 0;
       pausePanel.SetActive(true);
       pauseBackG.SetActive(true);
@@ -37,6 +38,7 @@ public class MainMenue : MonoBehaviour
 
    public void Resume()
    {
+      GameObject.Find("Doodler").GetComponent<PlayerScript>().isPaused = false;
       pausePanel.SetActive(false);
       pauseBackG.SetActive(false);
       Time.timeScale = 1f;

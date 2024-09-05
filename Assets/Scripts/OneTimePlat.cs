@@ -19,9 +19,9 @@ public class OneTimePlat : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.transform.CompareTag("Player"))
+        if (other.transform.CompareTag("Player") && other.relativeVelocity.y <= 0 || other.relativeVelocity.y > 0 && other.relativeVelocity.y < 1)
         {
-            
+            Destroy(this.gameObject);
         }
     }
 }

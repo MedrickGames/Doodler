@@ -20,7 +20,8 @@ public class PlayerScript : MonoBehaviour
     public bool isShooting;
     private bool hasChangedSprite;
     Coroutine activeShooterCoroutine;
-    public bool isDead = false;
+    public bool isDead;
+    public bool isPaused;
     
     void Start()
     {
@@ -32,7 +33,10 @@ public class PlayerScript : MonoBehaviour
     
     void Update()
     {
-        CalculateMovement();
+        if (!isPaused)
+        {
+            CalculateMovement();
+        }
     }
 
    void FixedUpdate()
