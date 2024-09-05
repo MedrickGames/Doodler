@@ -22,7 +22,8 @@ public class PlayerScript : MonoBehaviour
     Coroutine activeShooterCoroutine;
     public bool isDead;
     public bool isPaused;
-    
+    private bool isOnCooldown = false; // Cooldown flag
+    public float cooldownDuration = 0f; 
     void Start()
     {
         _cam = Camera.main;
@@ -58,22 +59,20 @@ public class PlayerScript : MonoBehaviour
 
     void DidShoot()
     {
-        if (Input.GetMouseButtonDown(0) && !isDead)
+        if (Input.GetMouseButtonDown(0) && !isDead && !isOnCooldown)
         {
             var mousePosWorld = _cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, _cam.nearClipPlane));
-        
-            
             Vector3 aimDirection = mousePosWorld - transform.position;
             aimDirection.z = 0f;
-            
+
             nose.SetActive(true);
-            
             nose.transform.up = aimDirection.normalized;
-    
+
             Instantiate(booger, spawnPoint.position, Quaternion.identity).Init(nose.transform.up);
-            
             StartShooting();
-            
+
+            StartCoroutine(ShootingCooldown());
+            // Start the cooldown
         }
     }
     void IsOut()
@@ -103,43 +102,44 @@ public class PlayerScript : MonoBehaviour
        }
    }
 
+   IEnumerator ShootingCooldown()
+   {
+       isOnCooldown = true; // Set cooldown flag to true
+       yield return new WaitForSeconds(0.2f); // Wait for the cooldown duration
+       isOnCooldown = false; // Reset cooldown flag
+   }
    IEnumerator ActiveShooter()
    {
-       if (isShooting) // If already shooting, return
+       if (isShooting)
            yield break;
 
-       isShooting = true; // Mark shooting as active
-
-       // Perform any initial actions needed for shooting
+       isShooting = true;
        playerSprite.sprite = skins[4]; // Example: Set shooting skin
-       nose.SetActive(true); // Example: Activate the nose
+       nose.SetActive(true);
 
-       yield return new WaitForSeconds(1.5f); // Wait for 5 seconds
+       yield return new WaitForSeconds(1.5f); // Wait for 1.5 seconds
 
-       // Actions after shooting duration ends
        if (!isDead)
        {
-        playerSprite.sprite = skins[2]; // Revert to another skin after shooting
+           playerSprite.sprite = skins[2]; // Revert to another skin after shooting
        }
-       nose.SetActive(false); // Deactivate the nose
-       isShooting = false; // Reset shooting state
+       nose.SetActive(false);
+       isShooting = false;
    }
+
    void StartShooting()
    {
        if (activeShooterCoroutine != null)
        {
-           // Stop the existing coroutine if one is running
            StopCoroutine(activeShooterCoroutine);
-
-           // Ensure that the shooting state and skin are reset properly
            playerSprite.sprite = skins[2];
            nose.SetActive(false);
            isShooting = false;
        }
 
-       // Start a new coroutine
        activeShooterCoroutine = StartCoroutine(ActiveShooter());
    }
+
 
    public void die()
    {
