@@ -23,7 +23,10 @@ public class PlayerScript : MonoBehaviour
     public bool isDead;
     public bool isPaused;
     private bool isOnCooldown = false; // Cooldown flag
-    public float cooldownDuration = 0f; 
+    public float cooldownDuration = 0f;
+    public AudioClip pew;
+    public AudioSource playerAudio;
+    public GameObject boogerHolder;
     void Start()
     {
         _cam = Camera.main;
@@ -61,6 +64,7 @@ public class PlayerScript : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && !isDead && !isOnCooldown)
         {
+            playerAudio.PlayOneShot(pew);
             var mousePosWorld = _cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, _cam.nearClipPlane));
             Vector3 aimDirection = mousePosWorld - transform.position;
             aimDirection.z = 0f;
@@ -68,11 +72,21 @@ public class PlayerScript : MonoBehaviour
             nose.SetActive(true);
             nose.transform.up = aimDirection.normalized;
 
-            Instantiate(booger, spawnPoint.position, Quaternion.identity).Init(nose.transform.up);
-            StartShooting();
+            Booger newBooger = Instantiate(booger, spawnPoint.position, Quaternion.identity);
+            newBooger.Init(nose.transform.up);
+            
+            newBooger.transform.parent = boogerHolder.transform;
+            
+            StartCoroutine(DestroyBoogerAfterTime(newBooger, 5f));StartShooting();
 
             StartCoroutine(ShootingCooldown());
             // Start the cooldown
+        }
+        
+        IEnumerator DestroyBoogerAfterTime(Booger booger, float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            Destroy(booger.gameObject);
         }
     }
     void IsOut()
