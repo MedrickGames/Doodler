@@ -10,6 +10,7 @@ public class Platform : MonoBehaviour
     private float jumpSpeed = 15f;
     private PlayerScript player;
     private Rigidbody2D platfrom;
+    public GameObject Spring;
 
     private void Start()
     {

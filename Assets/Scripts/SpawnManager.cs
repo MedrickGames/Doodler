@@ -22,9 +22,9 @@ public class SpawnManager : MonoBehaviour
     public int bluePlatformMaxInterval = 20; // Maximum number of green platforms before a blue one
     public float whitePlatformChance = 0.05f; // Chance for a white platform to spawn (5%)
     public float breakingPlatformChance = 0.1f; // Chance for a breaking platform to spawn between normal platforms (10%)
-    public int scoreThresholdForEnemies = 200; // Score threshold to start spawning enemies
-    public GameObject enemyPrefab;           // Enemy prefab to spawn
-    public float enemySpawnChance = 0.1f;    // Chance to spawn an enemy (0.1 = 10%)
+    public int scoreThresholdForEnemies = 200;  // Score threshold to start spawning enemies
+    public List<GameObject> enemyPrefabs;      // List of enemy prefabs
+    public float enemySpawnChance = 0.1f;      // Chance to spawn an enemy (0.1 = 10%)
 
     [Header("Black Hole Settings")]
     public GameObject blackHolePrefab;       // Black Hole prefab
@@ -85,65 +85,87 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    void SpawnPlatform()
+private int platformSpawnCounter = 0;  // To keep track of the number of platforms spawned
+
+void SpawnPlatform()
+{
+    // Random X position within the camera's width
+    float spawnX = Random.Range(-cameraWidth, cameraWidth);
+
+    // Random Y spacing between minYSpacing and maxYSpacing
+    float spawnY = highestY + Random.Range(minYSpacing, maxYSpacing);
+
+    // Update the highestY to the new spawn position
+    highestY = spawnY;
+
+    // Determine platform type
+    GameObject platformPrefabToUse;
+
+    if (greenPlatformCount >= nextBluePlatformInterval)
     {
-        // Random X position within the camera's width
-        float spawnX = Random.Range(-cameraWidth, cameraWidth);
-
-        // Random Y spacing between minYSpacing and maxYSpacing
-        float spawnY = highestY + Random.Range(minYSpacing, maxYSpacing);
-
-        // Update the highestY to the new spawn position
-        highestY = spawnY;
-
-        // Determine platform type
-        GameObject platformPrefabToUse;
-
-        if (greenPlatformCount >= nextBluePlatformInterval)
-        {
-            // Blue platform spawn
-            platformPrefabToUse = bluePlatformPrefab;
-            greenPlatformCount = 0;
-            SetNextBluePlatformInterval();
-        }
-        else if (Random.value < whitePlatformChance)
-        {
-            // White platform spawn
-            platformPrefabToUse = whitePlatformPrefab;
-        }
-        else
-        {
-            // Green platform spawn
-            platformPrefabToUse = greenPlatformPrefab;
-            greenPlatformCount++;
-        }
-
-        // Instantiate the platform
-        Vector3 spawnPosition = new Vector3(spawnX, spawnY, 0f);
-        GameObject newPlatform = Instantiate(platformPrefabToUse, spawnPosition, Quaternion.identity);
-        newPlatform.transform.parent = platformHolder.transform;
-
-        // Add breaking platform in between platforms
-        if (Random.value < breakingPlatformChance)
-        {
-            SpawnBreakingPlatform(spawnY);
-        }
-
-        // Check if we should spawn an enemy
-        if (currentScore >= scoreThresholdForEnemies && Random.value < enemySpawnChance)
-        {
-            SpawnEnemy(spawnPosition);
-        }
-
-        // Check if we should spawn a black hole
-        if (currentScore >= blackHoleScoreThreshold && Random.value < blackHoleChance)
-        {
-            SpawnBlackHole();
-        }
-
-        // Add the new platform to the tracking list
-        spawnedPlatforms.Add(newPlatform);
+        // Blue platform spawn
+        platformPrefabToUse = bluePlatformPrefab;
+        greenPlatformCount = 0;
+        SetNextBluePlatformInterval();
     }
+    else if (Random.value < whitePlatformChance)
+    {
+        // White platform spawn
+        platformPrefabToUse = whitePlatformPrefab;
+    }
+    else
+    {
+        // Green platform spawn
+        platformPrefabToUse = greenPlatformPrefab;
+        greenPlatformCount++;
+    }
+
+    // Instantiate the platform
+    Vector3 spawnPosition = new Vector3(spawnX, spawnY, 0f);
+    GameObject newPlatform = Instantiate(platformPrefabToUse, spawnPosition, Quaternion.identity);
+    newPlatform.transform.parent = platformHolder.transform;
+
+    // Increment the total platform counter (this counts all platforms)
+    platformSpawnCounter++;
+
+    // Activate the spring every 30 platforms (regardless of platform type)
+    if (platformSpawnCounter % 30 == 0)
+    {
+        // Access the nested "Spring" object via "Platform (1)"
+        Transform platformTransform = newPlatform.transform.Find("Platform (1)");
+
+        if (platformTransform != null)
+        {
+            Transform springTransform = platformTransform.Find("Spring");
+            if (springTransform != null)
+            {
+                springTransform.gameObject.SetActive(true);
+            }
+        }
+    }
+
+    // Add breaking platform in between platforms
+    if (Random.value < breakingPlatformChance)
+    {
+        SpawnBreakingPlatform(spawnY);
+    }
+
+    // Check if we should spawn an enemy
+    if (currentScore >= scoreThresholdForEnemies && Random.value < enemySpawnChance)
+    {
+        SpawnRandomEnemy(spawnPosition);
+    }
+
+    // Check if we should spawn a black hole
+    if (currentScore >= blackHoleScoreThreshold && Random.value < blackHoleChance)
+    {
+        SpawnBlackHole();
+    }
+
+    // Add the new platform to the tracking list
+    spawnedPlatforms.Add(newPlatform);
+}
+
 
     void SetNextBluePlatformInterval()
     {
@@ -164,11 +186,18 @@ public class SpawnManager : MonoBehaviour
         breakingPlatform.transform.parent = platformHolder.transform;
     }
 
-    void SpawnEnemy(Vector3 platformPosition)
+    void SpawnRandomEnemy(Vector3 platformPosition)
     {
+        // Randomly select an enemy from the list
+        int randomIndex = Random.Range(0, enemyPrefabs.Count);
+        GameObject selectedEnemyPrefab = enemyPrefabs[randomIndex];
+
+        // Random X position for enemy spawn
         float enemySpawnX = Random.Range(-cameraWidth, cameraWidth);
         Vector3 enemySpawnPosition = new Vector3(enemySpawnX, platformPosition.y + Random.Range(1f, 2f), 0f);
-        Instantiate(enemyPrefab, enemySpawnPosition, Quaternion.identity);
+
+        // Instantiate the randomly selected enemy
+        Instantiate(selectedEnemyPrefab, enemySpawnPosition, Quaternion.identity);
     }
 
     void SpawnBlackHole()
