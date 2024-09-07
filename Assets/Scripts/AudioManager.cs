@@ -20,16 +20,8 @@ public class AudioManager : MonoBehaviour
             PlayRandomAudio();
         }
     }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("Player")) // Make sure to use the correct tag
-        {
-            PlayRandomAudio();
-        }
-    }
-
-    private void PlayRandomAudio()
+    
+    public void PlayRandomAudio()
     {
         if (audioClips.Length > 0)
         {

@@ -8,6 +8,8 @@ public class MonsterS : MonoBehaviour
     [SerializeField]
     private float jumpSpeed = 15f;
 
+    [SerializeField] private int lives = 1;
+
     public PlayerScript player;
 
     void Start()
@@ -21,7 +23,11 @@ public class MonsterS : MonoBehaviour
         {
             Rigidbody2D rb =  other.transform.GetComponent<Rigidbody2D>();
             rb.velocity = new Vector2(0,jumpSpeed);
-            Destroy(this.gameObject);
+            lives--;
+            if (lives==0)
+            {
+                Destroy(this.gameObject);
+            }
         }
     }
 

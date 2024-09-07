@@ -157,6 +157,7 @@ public class PlayerScript : MonoBehaviour
 
    public void die()
    {
+       GameObject.Find("Lava").GetComponent<AudioManager>().PlayRandomAudio();
        isDead = true;
        nose.SetActive(false);
        playerSprite.sprite = skins[5];
