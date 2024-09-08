@@ -29,8 +29,18 @@ public class Booger : MonoBehaviour
     {
         if (other.transform.CompareTag("Enemy"))
         {
-            Destroy(other.gameObject);
-            Destroy(this.gameObject);
+            other.transform.GetComponent<MonsterS>().lives--;
+            if (other.transform.GetComponent<MonsterS>().lives == 0)
+            {
+                Destroy(other.gameObject);
+                Destroy(this.gameObject);
+            }
+            else
+            {
+                other.transform.GetComponent<SpriteRenderer>().sprite =
+                    other.transform.GetComponent<MonsterS>().damage;
+            }
+            
         }
     }
 }

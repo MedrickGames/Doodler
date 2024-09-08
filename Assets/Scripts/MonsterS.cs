@@ -8,9 +8,10 @@ public class MonsterS : MonoBehaviour
     [SerializeField]
     private float jumpSpeed = 15f;
 
-    [SerializeField] private int lives = 1;
+    [SerializeField] public int lives = 1;
 
     public PlayerScript player;
+    public Sprite damage;
 
     void Start()
     {
@@ -28,6 +29,11 @@ public class MonsterS : MonoBehaviour
             {
                 Destroy(this.gameObject);
             }
+            else if (lives == 1)
+            {
+               this.GetComponent<SpriteRenderer>().sprite = damage;
+            }
+           
         }
     }
 

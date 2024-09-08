@@ -1957,10 +1957,12 @@ MonoBehaviour:
   whitePlatformChance: 0.05
   breakingPlatformChance: 0.1
   scoreThresholdForEnemies: 50
-  enemyPrefab: {fileID: 3075600926594942374, guid: 9119aca0a928c4245bc25924a8301827, type: 3}
+  enemyPrefabs:
+  - {fileID: 3075600926594942374, guid: 9119aca0a928c4245bc25924a8301827, type: 3}
+  - {fileID: 6650926602197855882, guid: e537e69b94674664ba9683a179f3f356, type: 3}
   enemySpawnChance: 0.1
   blackHolePrefab: {fileID: 3419198000288725949, guid: 4578fe8504c095d4b88cf5878e7c1187, type: 3}
-  blackHoleChance: 0.01
+  blackHoleChance: 0.1
   blackHoleScoreThreshold: 100
   platformHolder: {fileID: 1127136350}
 --- !u!4 &1959810488
