@@ -1990,6 +1990,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1964688537}
   - component: {fileID: 1964688536}
+  - component: {fileID: 1964688538}
   m_Layer: 0
   m_Name: AudioSource
   m_TagString: Untagged
@@ -2108,6 +2109,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1964688538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1964688535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bac7d76cfacbe7d4b884a331cd1a3e38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClips:
+  - {fileID: 8300000, guid: a8aa8db845cb969489fc2bd340621f74, type: 3}
+  - {fileID: 8300000, guid: f9a79170a57bb4e46b2c17003d821c50, type: 3}
+  - {fileID: 8300000, guid: c7bc61aca233a3349a15ce8d2ab06488, type: 3}
+  - {fileID: 8300000, guid: 48c0869c69f150442b15c08f181fce50, type: 3}
+  - {fileID: 8300000, guid: e82230f7c1ccd72449b1d01504c1271f, type: 3}
 --- !u!1 &2079470057
 GameObject:
   m_ObjectHideFlags: 0
@@ -2367,7 +2386,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 580838770057256497, guid: 55c619ee7dcb657408cd26bc4cfbe8e0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.15
+      value: 2.2
       objectReference: {fileID: 0}
     - target: {fileID: 580838770057256497, guid: 55c619ee7dcb657408cd26bc4cfbe8e0, type: 3}
       propertyPath: m_LocalPosition.z

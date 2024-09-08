@@ -13,9 +13,12 @@ public class MonsterS : MonoBehaviour
     public PlayerScript player;
     public Sprite damage;
 
+    public AudioManager audioSource;
+
     void Start()
     {
         player = GameObject.Find("Doodler").GetComponent<PlayerScript>();
+        audioSource = GameObject.Find("AudioSource").GetComponent<AudioManager>();
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -24,6 +27,7 @@ public class MonsterS : MonoBehaviour
         {
             Rigidbody2D rb =  other.transform.GetComponent<Rigidbody2D>();
             rb.velocity = new Vector2(0,jumpSpeed);
+            audioSource.PlayRandomAudio();
             lives--;
             if (lives==0)
             {
@@ -45,4 +49,6 @@ public class MonsterS : MonoBehaviour
             player.die();
         }
     }
+    
+    
 }
