@@ -11,6 +11,7 @@ public class Platform : MonoBehaviour
     private PlayerScript player;
     private Rigidbody2D platfrom;
     public GameObject Spring;
+    public GameObject DustParticle;
 
     private void Start()
     {
@@ -26,6 +27,7 @@ public class Platform : MonoBehaviour
                 StartCoroutine("JumpAn");
             }
             platformAnim();
+            Instantiate (DustParticle, transform.position, DustParticle.transform.rotation);
             Rigidbody2D rb =  other.transform.GetComponent<Rigidbody2D>();
             rb.velocity = new Vector2(0,jumpSpeed);
         }

@@ -107,6 +107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpSpeed: 20
   Spring: {fileID: 8691646426603243120}
+  DustParticle: {fileID: 5739993747400435238, guid: 27209e32f54420d41be6ec5991a3b7e0, type: 3}
 --- !u!68 &5265943295018213767
 EdgeCollider2D:
   m_ObjectHideFlags: 0
